@@ -38,6 +38,20 @@ class MinesweeperTest(unittest.TestCase):
         self.assertRaises(ValueError, Field, [['.', 'a'], ['.', '*']])
         self.assertRaises(ValueError, Field, [['.', '.'], ['.', 1]])
 
+    def test_is_bomb(self):
+        # is_bomb returns bool
+        #         raises IndexError
+        field = Field([['.', '.', '*'],
+                       ['*', '.', '.'],
+                       ['.', '*', '.']])
+
+        self.assertRaises(IndexError, field.is_bomb, 0, -1)
+        self.assertRaises(IndexError, field.is_bomb, -1, 0)
+        self.assertRaises(IndexError, field.is_bomb, 3, 3)
+
+        self.assertTrue(field.is_bomb(2, 1))
+        self.assertFalse(field.is_bomb(1, 1))
+
     def test_find_bombs(self):
         # find_bombs shuold returns bomb indexes
         # find_bombs returns generator

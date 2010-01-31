@@ -30,6 +30,15 @@ class Field(object):
                     raise ValueError('Only dot (.) and start (*)'
                                      'expected. Found %r ' % cell)
 
+    def is_bomb(self, i, j):
+        """
+        Checks if given index is bomb
+        """
+        if 0 <= i < self.height and 0 <= j < self.width:
+            return self._field[i][j] == '*'
+        else:
+            raise IndexError('Invalid index (%d, %d)' % (i, j))
+
     def find_bombs(self):
         """
         Yields bomb indexes (tuple)
