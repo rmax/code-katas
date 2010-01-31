@@ -1,3 +1,9 @@
+"""
+Minesweeper Kata
+
+Problem: http://acm.uva.es/p/v101/10189.html
+"""
+
 import copy
 
 class Field(object):
@@ -32,6 +38,9 @@ class Field(object):
                                      'expected. Found %r ' % cell)
 
     def is_empty(self):
+        """
+        Returns True if field has no rows or columns
+        """
         return self.height == 0 or self.width == 0
 
     def is_bomb(self, i, j):
@@ -47,10 +56,10 @@ class Field(object):
         """
         Yields bomb indexes (tuple)
         """
-        for i,row in enumerate(self._field):
-            for j,cell in enumerate(row):
+        for (i, row) in enumerate(self._field):
+            for (j, cell) in enumerate(row):
                 if cell == '*':
-                    yield (i,j)
+                    yield (i, j)
 
         # no index found
         raise StopIteration
@@ -67,15 +76,20 @@ class Field(object):
             # Note: xrange generates i-1 <= m < i+2
             for m in xrange(i-1, i+2):
                 for n in xrange(j-1, j+2):
-                    if (m, n) != (i, j) and 0 <= m < self.height and 0 <= n < self.width:
+                    if 0 <= m < self.height and 0 <= n < self.width \
+                        and (m, n) != (i, j): 
                         yield (m, n)
 
         raise StopIteration
         
         
     def count_adjacents_bombs(self, i, j):
+        """
+        Returns the total count of sourranding bombs
+        """
         if 0 <= i < self.height and 0 <= j < self.width:
-            return sum(1 for (m,n) in self.find_adjacents(i,j) if self.is_bomb(m,n))
+            return sum(1 for (m, n) in self.find_adjacents(i, j)
+                        if self.is_bomb(m,n))
         else:
             raise IndexError('Invalid index (%d, %d)' % (i, j))
 
