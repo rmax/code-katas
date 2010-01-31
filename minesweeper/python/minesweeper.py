@@ -29,5 +29,18 @@ class Field(object):
                 if cell not in ('.', '*'):
                     raise ValueError('Only dot (.) and start (*)'
                                      'expected. Found %r ' % cell)
+
+    def find_bombs(self):
+        """
+        Yields bomb indexes (tuple)
+        """
+        for i,row in enumerate(self._field):
+            for j,cell in enumerate(row):
+                if cell == '*':
+                    yield (i,j)
+
+        # no index found
+        raise StopIteration
+        
         
 
