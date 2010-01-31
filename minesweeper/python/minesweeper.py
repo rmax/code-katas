@@ -69,4 +69,9 @@ class Field(object):
         raise StopIteration
         
         
+    def count_adjacents_bombs(self, i, j):
+        if 0 <= i < self.height and 0 <= j < self.width:
+            return sum(1 for (m,n) in self.find_adjacents(i,j) if self.is_bomb(m,n))
+        else:
+            raise IndexError('Invalid index (%d, %d)' % (i, j))
 

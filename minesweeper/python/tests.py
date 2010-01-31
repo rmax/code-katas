@@ -118,6 +118,25 @@ class MinesweeperTest(unittest.TestCase):
                                       (1, 0),         (1, 2),
                                       (2, 0), (2, 1), (2, 2)])
 
+    def test_count_adjacents_bombs(self):
+        # count_adjacents_bombs returns integer
+        # count_adjacents_bombs raises IndexError on invalid index
+        field = Field([['.', '.', '*'],
+                       ['*', '.', '.'],
+                       ['.', '*', '.']])
+
+        self.assertRaises(IndexError, field.count_adjacents_bombs, -1, 0)
+        self.assertRaises(IndexError, field.count_adjacents_bombs, 0, -1)
+        self.assertRaises(IndexError, field.count_adjacents_bombs, 3, 3)
+
+        self.assertEquals(field.count_adjacents_bombs(0, 0), 1)
+        self.assertEquals(field.count_adjacents_bombs(0, 2), 0)
+        self.assertEquals(field.count_adjacents_bombs(1, 1), 3)
+        self.assertEquals(field.count_adjacents_bombs(1, 2), 2)
+        self.assertEquals(field.count_adjacents_bombs(2, 0), 2)
+        self.assertEquals(field.count_adjacents_bombs(2, 2), 1)
+
+
 
 
 if __name__ == "__main__":
