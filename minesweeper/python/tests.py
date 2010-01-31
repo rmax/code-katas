@@ -150,6 +150,31 @@ class MinesweeperTest(unittest.TestCase):
         self.assertEquals(field.count_adjacents_bombs(2, 0), 2)
         self.assertEquals(field.count_adjacents_bombs(2, 2), 1)
 
+    def test_resolve_field(self):
+        field = Field([])
+        self.assertEquals(field.resolve(), [])
+
+        field = Field([[]])
+        self.assertEquals(field.resolve(), [[]])
+
+        field = Field([['.']])
+        self.assertEquals(field.resolve(), [['0']])
+
+        field = Field([['*']])
+        self.assertEquals(field.resolve(), [['*']])
+
+        field = Field([['.', '*']])
+        self.assertEquals(field.resolve(), [['1', '*']])
+
+        field = Field([['*', '*']])
+        self.assertEquals(field.resolve(), [['*', '*']])
+
+        field = Field([['.', '.', '*'],
+                       ['*', '.', '.'],
+                       ['.', '*', '.']])
+        self.assertEquals(field.resolve(), [['1', '2', '*'],
+                                            ['*', '3', '2'],
+                                            ['2', '*', '1']])
 
 
 

@@ -1,3 +1,4 @@
+import copy
 
 class Field(object):
     """
@@ -77,4 +78,16 @@ class Field(object):
             return sum(1 for (m,n) in self.find_adjacents(i,j) if self.is_bomb(m,n))
         else:
             raise IndexError('Invalid index (%d, %d)' % (i, j))
+
+    def resolve(self):
+        """
+        Returns resolved field
+        """
+        result = copy.copy(self._field)
+        for i in xrange(self.height):
+            for j in xrange(self.width):
+                if not self.is_bomb(i, j):
+                    result[i][j] = str(self.count_adjacents_bombs(i, j))
+
+        return result
 
