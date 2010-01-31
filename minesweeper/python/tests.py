@@ -71,6 +71,38 @@ class MinesweeperTest(unittest.TestCase):
         indexes = list(field.find_bombs())
         self.assertEquals(indexes, [(0, 2), (1, 0), (2, 1)])
 
+    def test_find_adjacents(self):
+        # find_adjacents returns adjacents' indexes
+        # find_adjacents returns generator
+        # find_adjacents returns empty on non-existent index
+        field = Field([['.', '.', '*'],
+                       ['*', '.', '.'],
+                       ['.', '*', '.']])
+
+        # test invalid indexes
+        adjacents = list(field.find_adjacents(0, -1))
+        self.assertEquals(adjacents, [])
+        adjacents = list(field.find_adjacents(-1, 0))
+        self.assertEquals(adjacents, [])
+        adjacents = list(field.find_adjacents(3, 3))
+        self.assertEquals(adjacents, [])
+
+        adjacents = list(field.find_adjacents(0, 0))
+        self.assertEquals(adjacents, [(0, 1), (1, 0), (1, 1)])
+
+        adjacents = list(field.find_adjacents(0, 2))
+        self.assertEquals(adjacents, [(0, 1), (1, 1), (1, 2)])
+
+        adjacents = list(field.find_adjacents(2, 0))
+        self.assertEquals(adjacents, [(1, 0), (1, 1), (2, 1)])
+
+        adjacents = list(field.find_adjacents(2, 2))
+        self.assertEquals(adjacents, [(1, 1), (1, 2), (2, 1)])
+
+        adjacents = list(field.find_adjacents(1, 1))
+        self.assertEquals(adjacents, [(0, 0), (0, 1), (0, 2),
+                                      (1, 0),         (1, 2),
+                                      (2, 0), (2, 1), (2, 2)])
 
 
 

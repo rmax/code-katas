@@ -41,6 +41,23 @@ class Field(object):
 
         # no index found
         raise StopIteration
+
+    def find_adjacents(self, i, j):
+        """
+        Yields adjacent indexes
+        """
+        # check if cell index exists
+        # - negative index
+        # - out of bound
+        if 0 <= i < self.height and 0 <= j < self.width:
+            # walk over all sourranding index
+            # Note: xrange generates i-1 <= m < i+2
+            for m in xrange(i-1, i+2):
+                for n in xrange(j-1, j+2):
+                    if (m, n) != (i, j) and 0 <= m < self.height and 0 <= n < self.width:
+                        yield (m, n)
+
+        raise StopIteration
         
         
 
