@@ -30,6 +30,9 @@ class Field(object):
                     raise ValueError('Only dot (.) and start (*)'
                                      'expected. Found %r ' % cell)
 
+    def is_empty(self):
+        return self.height == 0 or self.width == 0
+
     def is_bomb(self, i, j):
         """
         Checks if given index is bomb
