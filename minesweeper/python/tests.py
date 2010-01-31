@@ -27,6 +27,11 @@ class MinesweeperTest(unittest.TestCase):
         self.assertEquals(field.width, 2)
         self.assertEquals(field.height, 2)
 
+    def test_invalid_field(self):
+        # validate non-equal length rows
+        self.assertRaises(ValueError, Field, [['.'], ['.', '.']])
+        self.assertRaises(ValueError, Field, [['.', '.', '.'], ['.', '.']])
+
 
 if __name__ == "__main__":
     unittest.main()
