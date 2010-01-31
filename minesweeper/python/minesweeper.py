@@ -22,5 +22,12 @@ class Field(object):
             if len(row) != self.width:
                 raise ValueError('Invalid row length %d != %d: %r' \
                             % (self.width, len(row), row))
+
+        # validate characters
+        for row in self._field:
+            for cell in row:
+                if cell not in ('.', '*'):
+                    raise ValueError('Only dot (.) and start (*)'
+                                     'expected. Found %r ' % cell)
         
 
